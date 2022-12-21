@@ -147,7 +147,7 @@ class MainPage extends Component {
                </div>
                {/* <!-- Product actions--> */}
                <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                  <div className="text-center"><a href="#"><button className="btn btn-outline-dark mt-auto" onClick={() => { this.displayCartCount(product, index) }} id={index}>{(product !== 'Fancy Product') ? btnName : 'View options'}</button></a></div>
+                  <div className="text-center"><button className="btn btn-outline-dark mt-auto" onClick={() => { this.displayCartCount(product, index) }} id={index}>{(product !== 'Fancy Product') ? btnName : 'View options'}</button></div>
                </div>
             </div>
          </div>
