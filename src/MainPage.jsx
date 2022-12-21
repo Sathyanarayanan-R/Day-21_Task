@@ -15,23 +15,44 @@ class MainPage extends Component {
       this.state = {
          products: ['Fancy Product', 'Special Item', 'Sale Item', 'Popular Item', 'Sale Item', 'Fancy Product', 'Special Item', 'Popular Item'],
          prices: ['$40.00 - $80.00', '$20.00 $18.00', '$50.00 $25.00', '$40.00', '$50.00 $25.00', '$120.00 - $280.00', '$20.00 $18.00', '$40.00'],
-         cart_count: 0,
+         cart_count: 0
       }
    }
 
    displayReview = (product, index) => {
 
       if (product === 'Special Item' || product === 'Popular Item') {
+         setTimeout(() => {this.handleRating(index)},100);
          return (
-            <div className="d-flex justify-content-center small text-warning mb-2">
-               <div className="bi-star-fill"></div>
-               <div className="bi-star-fill"></div>
-               <div className="bi-star-fill"></div>
-               <div className="bi-star-fill"></div>
-               <div className="bi-star-fill"></div>
+            <div id= {'stars' + index} className="text-warning mb-2" style={{fontSize: '22px'}}>
+               <span className="bi-star"></span>
+               <span className="bi-star"></span>
+               <span className="bi-star"></span>
+               <span className="bi-star"></span>
+               <span className="bi-star"></span>
             </div>
          )
       }
+   }
+  
+   handleRating = (index) => {
+       
+      const stars = document.querySelectorAll(`#stars${index} span`);
+      
+      stars.forEach((star, index1) => {
+           star.addEventListener("click", () => {
+               stars.forEach((star, index2) => {
+                   if(index1 >= index2) {
+                     star.classList.remove("bi-star");
+                     star.classList.add("bi-star-fill");
+                   } else {
+                     star.classList.remove("bi-star-fill");
+                     star.classList.add("bi-star");
+                   }
+               })
+           });
+           star.style.cursor = 'pointer';
+      });
    }
 
    displayPrice = (product, price) => {
@@ -73,7 +94,7 @@ class MainPage extends Component {
       return [product, btnName];
    }
 
-   displayCartCount = async (product, index) => {
+   displayCartCount = (product, index) => {
 
       var btnEle = document.getElementById(index);
 
@@ -118,7 +139,7 @@ class MainPage extends Component {
                      <h5 className="fw-bolder">{product}</h5>
                      {/* <!-- Product reviews--> */}
 
-                     {this.displayReview(product)}
+                     {this.displayReview(product, index)}
 
                      {/* <!-- Product price--> */}
                      {this.displayPrice(product, this.state.prices[index])}
